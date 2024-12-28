@@ -8,7 +8,7 @@ const app = express();
 const server = http.createServer(app);
 const io = new Server(server, {
     cors: {
-        origin: "*", // Use your frontend's deployed URL
+        origin: "https://busy-marlene-codexspaces-79079c7e.koyeb.app", // Use your frontend's deployed URL
         methods: ["GET", "POST"],
     },
 });
