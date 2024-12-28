@@ -8,7 +8,7 @@ const app = express();
 const server = http.createServer(app);
 const io = new Server(server, {
     cors: {
-        origin: "https://busy-marlene-codexspaces-79079c7e.koyeb.app", // Use your frontend's deployed URL
+        origin: process.env.FRONTEND_URL || "http://localhost:3000", // Use environment variable
         methods: ["GET", "POST"],
     },
 });
@@ -29,7 +29,7 @@ app.get('*', (req, res) => {
 });
 
 io.on('connection', (socket) => {
-    console.log('Socket Connected', socket.id);
+    console.log('Socket Connected:', socket.id);
 
     socket.on(ACTIONS.JOIN, ({ roomId, username }) => {
         userSocketMap[socket.id] = username;
@@ -68,12 +68,22 @@ io.on('connection', (socket) => {
                 socketId: socket.id,
                 username: userSocketMap[socket.id],
             });
+
+            // Cleanup empty rooms
+            if (io.sockets.adapter.rooms.get(roomId)?.size === 1) {
+                io.sockets.adapter.rooms.delete(roomId);
+            }
         });
+
         delete userSocketMap[socket.id];
     });
 
     socket.on('error', (err) => {
         console.error('Socket Error:', err);
+    });
+
+    socket.on('disconnect', (reason) => {
+        console.log(`Socket Disconnected: ${socket.id}, Reason: ${reason}`);
     });
 });
 
