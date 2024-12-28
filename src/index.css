@@ -5,9 +5,377 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background: #1c1e29;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.homePageWrapper{
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+}
+.formWrapper{
+  background: #282a36;
+  padding: 20px;
+  border-radius: 10px;
+  width: 400px;
+  max-width: 90%;
+  
+}
+.logoWrapper{
+  display: flex;
+  align-items: center;
+  justify-content:space-around;
+  font-size: x-large;
+  font-family: Didot;
+  
+}
+@media screen and (max-width:550px) {
+  .logoWrapper h2{
+    font-size: large;
+  } 
+  
+}
+@media screen and (max-width:300px) {
+  .logoWrapper {
+    display: flex;
+    flex-direction: column;
+  }
+  .logoWrapper h2{
+    font-size: large;
+  } 
+  
+}
+.formWrapper img{
+  height: 140px;
+  margin-bottom: 30px;
+}
+footer{
+  position:fixed;
+  bottom:0;
+}
+footer a{
+  color:#e97407
+}
+.inputGroup{
+  display: flex;
+  flex-direction: column;
+}
+.mainLabel{
+  margin-bottom:20px;
+  margin-top: 0;
+}
+.inputBox{
+  padding: 10px;
+  border-radius: 5px;
+  outline: none;
+  border: none;
+  margin-bottom: 14px;
+  background: #eee;
+  font-size: 16px;
+  font-weight: bold;
+}
+/* General button style */
+.btn {
+  border: none;
+  padding: 12px;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  background: linear-gradient(145deg, rgb(255, 115, 0), #ff9203); /* Default green gradient */
+  box-shadow: 0 4px 15px rgba(255, 145, 0, 0.979); /* Default green shadow */
+}
+
+/* Hover effect for general buttons */
+.btn:hover {
+  background: linear-gradient(145deg, #56ff7f, #28a745);
+  box-shadow: 0 6px 20px rgba(86, 255, 127, 0.8);
+}
+
+/* Specific style for the leave button */
+.leaveBtn {
+  margin-top: 20px;
+  background: linear-gradient(145deg, #ff4d4d, #ff9999); /* Red gradient for leave button */
+  box-shadow: 0 4px 15px rgba(255, 153, 153, 0.5); /* Red shadow */
+  outline: none;
+}
+
+/* Leave button hover effect */
+.leaveBtn:hover {
+  background: linear-gradient(145deg, #ff9999, #ff4d4d);
+  box-shadow: 0 6px 20px rgba(255, 153, 153, 0.8);
+}
+
+/* Specific style for the copy button */
+.copyBtn {
+  background: linear-gradient(145deg, #1e90ff, #87cefa); /* Blue gradient for copy button */
+  box-shadow: 0 4px 15px rgba(135, 206, 250, 0.5); /* Blue shadow */
+  outline: none;
+}
+
+/* Copy button hover effect */
+.copyBtn:hover {
+  background: linear-gradient(145deg, #87cefa, #1e90ff);
+  box-shadow: 0 6px 20px rgba(135, 206, 250, 0.8);
+}
+
+
+.createInfo{
+  margin: 0 auto;
+  margin-top: 20px;
+}
+.createNewBtn ,footer a{
+  color: #e97407;
+  text-decoration: none;
+  border-bottom: 1px solid #e97407;
+  transition: all 0.3 ease-in-out;
+}
+.createNewBtn:hover ,footer a:hover{
+  color:#e97407c2;
+  border-bottom: #ca6200;
+}
+.mainWrap{
+  display: grid;
+  grid-template-columns: 230px 1fr;
+  height: 100vh;
+}
+.aside{
+  background: #1c1e29;
+  padding: 16px;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+}
+.asideInner{
+  flex:1;
+}
+.clientsList {
+  display: flex;
+  flex-wrap: wrap; 
+  gap: 20px; 
+}
+
+.client {
+  flex-basis: calc(50% - 20px); 
+  box-sizing: border-box; 
+  display: flex;
+  flex-direction: column; 
+  align-items: center; 
+}
+
+.username {
+  margin-top: 10px; 
+  font-weight: bold;
+}
+
+.logo{
+  border-bottom: 1px solid #424242;
+  padding-bottom: 10px;
+  font-size: 13px;
+}
+.logoBox{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: Didot;
+}
+.logoImage{
+  height: 60px;
+}
+.leaveBtn{
+  margin-top: 20px;
+  background: #e97407;
+  outline: none;
+}
+.leaveBtn:hover{
+  background-color: #e97407c2;
+}
+.codeMirror{
+  min-height: calc(100vh -20px);
+  font-size: 20px;
+  line-height: 1.6;
+  padding-top: 20px;
+}
+.inputBox {
+  padding: 12px; 
+  border-radius: 7px; 
+  outline: none;
+  border: 1px solid rgba(255, 255, 255, 0.3); 
+  margin-bottom: 14px;
+  background: rgba(255, 255, 255, 0.2);
+  font-size: 16px;
+  font-weight: bold;
+  color: #ffffff; 
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); 
+  backdrop-filter: blur(15px);
+  transition: all 0.3s ease-in-out;
+}
+
+.inputBox::placeholder {
+  color: rgba(255, 255, 255, 0.7); 
+  font-weight: normal; 
+}
+
+.inputBox:hover {
+  background: rgba(255, 255, 255, 0.3); 
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25); 
+}
+
+.inputBox:focus {
+  border-color: #e97407; 
+  box-shadow: 0 0 10px rgba(233, 116, 7, 0.5); 
+}
+.client {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  font-weight: bold;
+  background: rgba(255, 255, 255, 0.1); 
+  border-radius: 2px; 
+  padding: 1px; 
+  padding-top: 7px;
+  padding-bottom: 10px;
+  margin: 1px; 
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); 
+  backdrop-filter: blur(10px); 
+  transition: all 0.3s ease-in-out; 
+}
+
+.client:hover {
+  background: rgba(255, 255, 255, 0.2); /* Slightly less transparent on hover */
+  box-shadow: 0 6px 30px rgba(0, 0, 0, 0.35); /* Deeper shadow on hover */
+}
+
+.username {
+  margin-top: 10px;
+  color: #ffffff; /* White text for contrast */
+  font-size: 14px;
+  /* Font size for username */
+}
+/* Terminal output container */
+.terminalOutput {
+  background-color: #1e1e1e; /* Dark background to mimic a terminal */
+  color: #00ff00; /* Bright green text for terminal output */
+  font-family: 'Courier New', Courier, monospace; /* Monospace font for terminal look */
+  font-size: 14px; /* Adjust font size for readability */
+  padding: 20px; /* Padding for some space inside the terminal */
+  border-radius: 8px; /* Rounded corners */
+  margin-top: 20px; /* Some space between the editor and terminal */
+  height: 200px; /* Fixed height for terminal */
+  overflow-y: auto; /* Scroll if the content exceeds the height */
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5); /* Inner shadow for terminal look */
+}
+
+/* Text output in the terminal */
+.terminalOutput .outputLine {
+  margin: 5px 0; /* Space between lines */
+}
+
+/* Style for error messages */
+.terminalOutput .error {
+  color: #ff4d4d; /* Red color for error messages */
+  font-weight: bold;
+}
+.terminalOutput {
+  overflow-y: scroll; /* Keep scroll functionality */
+  scrollbar-width: thin; /* Firefox */
+  scrollbar-color: transparent transparent; /* Firefox */
+  margin-bottom: 0px;
+}
+
+/* Hide scrollbar for WebKit browsers */
+.terminalOutput::-webkit-scrollbar {
+  width: 0;
+  background: transparent; /* Hide scrollbar */
+}
+.terminalBox {
+  display: flex; /* Use Flexbox */
+  flex-direction: column; /* Stack children vertically */
+  justify-content: space-between; /* Space out children */
+  padding: 10px; /* Add padding */
+  border: 1px solid #ccc; /* Example border */
+  border-radius: 5px; /* Rounded corners */
+  height: 300px; /* Fixed height for the terminal box */
+  overflow-y: auto; /* Allow scrolling if content overflows */
+}
+
+.terminalOutput {
+  flex-grow: 1; /* Allow this to take up available space */
+}
+
+.compileBtn {
+  align-self: flex-end; /* Aligns button to the right */
+  padding: 10px;
+  background-color: #e97407; /* Example background color */
+  color: #fff; /* Button text color */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.compileBtn:hover {
+  background-color: #ff9203; /* Example hover color */
+}
+.editorWrap {
+  display: flex;
+  flex-direction: column; /* Stack children vertically */
+  height: calc(100vh - 20px); /* Full height minus any additional margins or paddings */
+   /* Space for the terminal */
+  overflow: hidden; /* Prevent overflow for the editor */
+}
+
+.terminalBox {
+  margin-top: auto; /* Pushes the terminal box to the bottom */
+  padding: 10px; /* Inner padding */
+  border-top: 1px solid #ccc; /* Top border for visual separation */
+ /* Background color */
+}
+
+
+
+.editorWrap {
+  margin-top: 60px; /* Add 20px space from the top */
+  position: relative; /* Keep position relative to manage layout */
+  height: 100%; /* Ensure it takes up the available space */
+}
+.editorWrap {
+  display: flex;
+  flex-direction: column; 
+  justify-content: space-around;
+  height: 100vh; /* Full height */
+  margin-top: 0px; /* Remove any margin */
+  padding: 0; /* Remove any padding */
+  overflow: hidden; 
+}
+
+.terminalBox {
+  margin-top: 5px; /* Remove margin between editor and terminal */
+  padding: 10px; 
+  border-top: 1px solid black;
+  height: 300px; 
+  background-color: #1e1e1e; 
+  flex-shrink: 0; /* Prevent shrinking */
+}
+
+
+.aside.closed .logoBox h2 {
+  display: none; /* Hide the h2 when aside is closed */
+}
+.aside.closed{
+  width: 40px;
+  cursor: pointer;
+}
+
+.hidden {
+  display: none; /* Hide the h2 */
+}
+.iconleave{
+  width: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
