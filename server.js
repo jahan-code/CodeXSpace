@@ -15,13 +15,13 @@ const io = new Server(server, {
     },
 });
 
-// Serve static files from the 'build' folder
-app.use(express.static('build'));
+app.use(express.static(path.join(__dirname, 'build')));
 
-// Ensure index.html is sent for all non-API routes
-app.use((req, res, next) => {
+// This should be at the bottom, so it catches all other routes that aren't static files
+app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
+
 
 const userSocketMap = {};
 
