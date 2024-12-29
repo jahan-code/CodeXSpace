@@ -5,7 +5,13 @@ const { Server } = require('socket.io');
 const ACTIONS = require('./src/Actions');
 const path=require('path')
 const server = http.createServer(app);
-const io = new Server(server);
+const io = new Server(server, {
+    cors: {
+        origin: 'https://busy-marlene-codexspaces-79079c7e.koyeb.app', // Replace with your frontend's URL
+        methods: ['GET', 'POST'],
+    },
+});
+
 app.use(express.static('build'))
 app.use((req,res,next)=>{
     res.sendFile(path.join(__dirname,'build','index.html'))
