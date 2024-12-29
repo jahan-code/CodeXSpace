@@ -9,6 +9,6 @@ export const initSocket = async () => {
      
     };
 
-    return io('https://busy-marlene-codexspaces-79079c7e.koyeb.app', options);
+    return io('http://localhost:5000', options);
 
 };
