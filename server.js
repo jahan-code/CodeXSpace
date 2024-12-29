@@ -1,28 +1,16 @@
 const express = require('express');
+const app = express();
 const http = require('http');
 const { Server } = require('socket.io');
 const ACTIONS = require('./src/Actions');
-const path = require('path');
 
-const app = express();
 const server = http.createServer(app);
+const io = new Server(server);
 
-// CORS configuration for Socket.io
-const io = new Server(server, {
-    cors: {
-        origin: "https://busy-marlene-codexspaces-79079c7e.koyeb.app", // Frontend deployed URL (update as needed)
-        methods: ["GET", "POST"],
-    },
-});
-
-app.use(express.static(path.join(__dirname, 'build')));
-
-// This should be at the bottom, so it catches all other routes that aren't static files
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'build', 'index.html'));
-});
-
-
+app.use(express.static('build'))
+app.use((req,res,next)=>{
+    res.sendFile(path.join(__dirname,'build','index.html'))
+})
 const userSocketMap = {};
 
 // Function to get all connected clients in a room
@@ -74,8 +62,8 @@ io.on('connection', (socket) => {
     socket.on(ACTIONS.SYNC_CODE, ({ socketId, code }) => {
         io.to(socketId).emit(ACTIONS.CODE_CHANGE, { code });
     });
-
-    // Handle user leaving the room
+    console.log('Socket Connected', socket.id);
+    // Handle user leaving the room via button press
     socket.on(ACTIONS.LEAVE, ({ roomId, username }) => {
         socket.leave(roomId); // Leave the room
     
