@@ -1,18 +1,28 @@
 const express = require('express');
-const app = express();
 const http = require('http');
 const { Server } = require('socket.io');
 const ACTIONS = require('./src/Actions');
 const path = require('path');
 
-
+const app = express();
 const server = http.createServer(app);
-const io = new Server(server);
 
-app.use(express.static('build'))
-app.use((req,res,next)=>{
-    res.sendFile(path.join(__dirname,'build','index.html'))
-})
+// CORS configuration for Socket.io
+const io = new Server(server, {
+    cors: {
+        origin: "https://busy-marlene-codexspaces-79079c7e.koyeb.app", // Frontend deployed URL (update as needed)
+        methods: ["GET", "POST"],
+    },
+});
+
+// Serve static files from the 'build' folder
+app.use(express.static('build'));
+
+// Ensure index.html is sent for all non-API routes
+app.use((req, res, next) => {
+    res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
+
 const userSocketMap = {};
 
 // Function to get all connected clients in a room
@@ -64,8 +74,8 @@ io.on('connection', (socket) => {
     socket.on(ACTIONS.SYNC_CODE, ({ socketId, code }) => {
         io.to(socketId).emit(ACTIONS.CODE_CHANGE, { code });
     });
-    console.log('Socket Connected', socket.id);
-    // Handle user leaving the room via button press
+
+    // Handle user leaving the room
     socket.on(ACTIONS.LEAVE, ({ roomId, username }) => {
         socket.leave(roomId); // Leave the room
     
