@@ -8,7 +8,7 @@ export const initSocket = async () => {
         transports: ['websocket','polling'],
      
     };
-    const socketUrl = process.env.REACT_APP_BACKEND_URL || 'http://localhost:5000';
-    return io(socketUrl, options);
+
+    return io('http://localhost:5000', options);
 
 };
