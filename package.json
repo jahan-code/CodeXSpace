@@ -16,6 +16,7 @@
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.21.0",
+    "path": "^0.12.7",
     "react": "^18.3.1",
     "react-avatar": "^5.0.3",
     "react-dom": "^18.3.1",
@@ -30,7 +31,7 @@
     "yarn": "^1.22.22"
   },
   "scripts": {
-    "start:front":"react-scripts start",
+    "start:front": "react-scripts start",
     "start": "npm build&&npm server:prod",
     "build": "react-scripts build",
     "server:dev": "nodemon server.js",
