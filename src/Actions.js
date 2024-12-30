@@ -4,7 +4,7 @@ const ACTIONS = {
     DISCONNECTED: 'disconnected',
     CODE_CHANGE: 'code-change',
     SYNC_CODE: 'sync-code',
-    LEAVE: 'leave', // This is needed for the LEAVE event
+    LEAVE: 'leave', 
 };
 
 module.exports = ACTIONS;
