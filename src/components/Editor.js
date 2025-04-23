@@ -8,62 +8,54 @@ import 'codemirror/addon/edit/closebrackets';
 import ACTIONS from '../Actions';
 
 const Editor = ({ socketRef, roomId, onCodeChange }) => {
-  const editorRef = useRef(null);
+    const editorRef = useRef(null);
 
-  // Initialize CodeMirror
-  useEffect(() => {
-    let editor;
+    useEffect(() => {
+        async function init() {
+            editorRef.current = Codemirror.fromTextArea(
+                document.getElementById('realtimeEditor'),
+                {
+                    mode: { name: 'javascript', json: true },
+                    theme: 'dracula',
+                    autoCloseTags: true,
+                    autoCloseBrackets: true,
+                    lineNumbers: true,
+                }
+            );
 
-    async function init() {
-      editor = Codemirror.fromTextArea(
-        document.getElementById('realtimeEditor'),
-        {
-          mode: { name: 'javascript', json: true },
-          theme: 'dracula',
-          autoCloseTags: true,
-          autoCloseBrackets: true,
-          lineNumbers: true,
+            editorRef.current.on('change', (instance, changes) => {
+                const { origin } = changes;
+                const code = instance.getValue();
+                onCodeChange(code);
+                if (origin !== 'setValue') {
+                    socketRef.current.emit(ACTIONS.CODE_CHANGE, {
+                        roomId,
+                        code,
+                    });
+                }
+            });
         }
-      );
+        init();
+    }, []);
 
-      editor.on('change', (instance, changes) => {
-        const { origin } = changes;
-        const code = instance.getValue();
-        onCodeChange(code);
-
-        if (origin !== 'setValue') {
-          socketRef.current.emit(ACTIONS.CODE_CHANGE, { roomId, code });
+    useEffect(() => {
+        if (socketRef.current) {
+            socketRef.current.on(ACTIONS.CODE_CHANGE, ({ code }) => {
+                if (code !== null) {
+                    editorRef.current.setValue(code);
+                }
+            });
         }
-      });
 
-      editorRef.current = editor;
-    }
+        // Cleanup function
+        return () => {
+            if (socketRef.current) {
+                socketRef.current.off(ACTIONS.CODE_CHANGE);
+            }
+        };
+    }, [socketRef.current]);
 
-    init();
-
-    return () => {
-      if (editor) editor.toTextArea();
-    };
-  }, [onCodeChange, roomId, socketRef]);
-
-  // Listen for remote code changes
-  useEffect(() => {
-    const socket = socketRef.current;
-    if (!socket) return;
-
-    const handleCodeChange = ({ code }) => {
-      if (code !== null) {
-        editorRef.current?.setValue(code);
-      }
-    };
-
-    socket.on(ACTIONS.CODE_CHANGE, handleCodeChange);
-    return () => {
-      socket.off(ACTIONS.CODE_CHANGE, handleCodeChange);
-    };
-  }, [socketRef]);
-
-  return <textarea id="realtimeEditor" />;
+    return <textarea  id="realtimeEditor"></textarea>;
 };
 
 export default Editor;
